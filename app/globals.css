@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   HLS Haustechnik – Design-Tokens
+   Brandkit der echten Seite: Beige (#F2EBDC), Azurblau (#2189E5),
+   Bronze/Gold (#AF7F35), Text fast-schwarz, Hausschrift Open Sans.
+   Aufgewertet um ein technisches, vertrauenswürdiges Premium-Niveau.
+   ========================================================================== */
+:root {
+  --ink: #16202b;        /* dunkles Slate-Navy: Haupttext + dunkle Sektionen */
+  --ink-2: #1e2c3a;      /* etwas heller: Karten/Funnel auf Dunkel */
+  --steel: #3a4a5e;      /* sekundäres Dunkel */
+
+  --blau: #2189e5;       /* PRIMÄR – Azurblau, direkt von der Seite */
+  --blau-hell: #5aa9ee;  /* helle Variante / Akzente auf dunklem Grund */
+  --blau-tief: #15568f;  /* tiefes Blau – Headlines/Hover bei Bedarf */
+  --blau-50: #e7f2fc;    /* Blau-Tint: Flächen, Icon-Badges */
+
+  --gold: #af7f35;       /* Bronze/Gold-Akzent von der Seite, sehr sparsam */
+  --kupfer: #c0512b;     /* Heizungs-/Wärme-Warmton, sparsam */
+  --kupfer-hell: #d9683f;
+
+  --sand: #f2ebdc;       /* BEIGE – Signatur-Fläche der Marke */
+  --sand-2: #f8f3ea;     /* helleres Creme */
+  --paper: #f2ebdc;      /* warme Sektionsfläche (= Beige) */
+  --paper-2: #f8f3ea;    /* zweite warme Fläche */
+  --line: #e6dcc8;       /* warme Haarlinie, harmoniert mit Beige */
+  --muted: #5e6a76;      /* gedämpfter Text, auf Weiß und Beige lesbar */
+  --ok: #1f9d6b;
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-opensans);
+  --font-mono: var(--font-plex-mono);
+
+  --radius: 14px;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-data {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Technisches Mess-Label (z.B. COP 4,8 · kW · °C) */
+.data-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Eyebrow / Sektions-Kennzeichnung */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Dezenter Blaupausen-Hintergrund für dunkle Sektionen */
+.blueprint {
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(90, 169, 238, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 169, 238, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Marquee (Markennamen, GROSSBUCHSTABEN, ohne Bilder) */
+.marquee {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Fokus-Sichtbarkeit (Quality-Floor) */
+:focus-visible {
+  outline: 2px solid var(--blau);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Rechtstexte (Impressum / Datenschutz) */
+.legal h2 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.legal h3 {
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+.legal p,
+.legal li {
+  color: var(--steel);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.legal p { margin-bottom: 0.75rem; }
+.legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.legal a {
+  color: var(--blau);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal strong { color: var(--ink); }
+.legal .todo {
+  background: var(--blau-50);
+  border: 1px dashed var(--blau-hell);
+  border-radius: 6px;
+  padding: 0 0.3rem;
+  color: var(--blau-tief);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Ergänzungen: TopBar, Hero-Höhe, Karten-Hover
+   ========================================================================== */
+
+/* horizontale Scrollleiste sauber ausblenden (TopBar auf Mobil) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hero füllt auf großen Screens angenehm viel Höhe (Team-Foto wirkt) */
+@media (min-width: 768px) {
+  #top {
+    min-height: 74vh;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Sanftes Anheben für Karten mit dieser Klasse */
+.card-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px -28px rgba(33, 137, 229, 0.45);
+}
