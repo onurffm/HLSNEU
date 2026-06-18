@@ -20,7 +20,7 @@ function BrandItem({ brand }: { brand: Brand }) {
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={brandLogo(brand.slug)}
+          src={brand.logo ?? brandLogo(brand.slug)}
           alt={`${brand.name} Logo`}
           className="h-8 w-auto object-contain md:h-9"
           onError={() => setFailed(true)}
